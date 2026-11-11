@@ -12,12 +12,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;800&display=swap" rel="stylesheet">
 
-<!-- Meta Pixel -->
+<!-- Meta Pixel Code -->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','YOUR_PIXEL_ID');
-fbq('track','PageView');
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2008031163226789');
+fbq('track', 'PageView');
 </script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2008031163226789&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 
 <style>
 :root{--ink:#0F0A2E;--grape:#3A139A;--violet:#7B33E8;--sun:#FFD84A;--amber:#FF9A1F;--pink:#FF3D8B}
@@ -190,9 +201,8 @@ html[data-l="ru"] span[data-lang="ru"],html[data-l="uz"] span[data-lang="uz"]{di
   tick();
   setInterval(tick, 1000);
 
-  // Обработка клика на кнопку и трекинг FB Pixel
+  // Обработка клика на кнопку и трекинг FB Pixel (отправка события Lead)
   document.getElementById('go').addEventListener('click', function(e){
-    var url = this.href;
     try {
       if (typeof fbq === 'function') {
         fbq('track', 'Lead');
