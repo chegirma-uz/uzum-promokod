@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uz" data-l="uz">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Промокод Uzum Market | Uzum Market promokodi</title>
-<meta name="description" content="Подпишись и получи промокод на Uzum Market + скидки каждый день.">
-<meta property="og:title" content="Промокод Uzum Market бесплатно | Chegirma UZ">
-<meta property="og:description" content="Подпишись и получи промокод + скидки каждый день.">
+<title>Uzum Market promokodi | Промокод Uzum Market</title>
+<meta name="description" content="Kanalga obuna bo‘ling va Uzum Market promokodini hamda har kuni chegirmalarni oling.">
+<meta property="og:title" content="Uzum Market promokodi bepul | Chegirma UZ">
+<meta property="og:description" content="Kanalga obuna bo‘ling va promokod hamda chegirmalarni oling.">
 <meta name="theme-color" content="#3A139A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +48,7 @@ body{
 .lang button{all:unset;cursor:pointer;padding:6px 14px;border-radius:999px;font-weight:600;font-size:13px;color:#fff;transition:background 0.2s, color 0.2s}
 .lang button.on{background:#fff;color:var(--grape)}
 
-/* Стабилизация высоты заголовков для одинакового размера страницы */
+/* Стабилизация высоты заголовков */
 .title-box { min-height: 145px; display: flex; flex-direction: column; justify-content: center; }
 h1{font-size:clamp(28px,8.5vw,38px);font-weight:800;line-height:1.15;letter-spacing:-.5px}
 h1 em{font-style:normal;color:var(--sun)}
@@ -105,7 +105,7 @@ html[data-l="ru"] span[data-lang="ru"],html[data-l="uz"] span[data-lang="uz"]{di
       <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 12 8 5h19a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H8L3 20z" fill="#FFD84A"/><circle cx="9" cy="16" r="2" fill="#3A139A"/><path d="M15 21 22 11" stroke="#0F0A2E" stroke-width="2.6" stroke-linecap="round"/><circle cx="16" cy="12.5" r="2.2" fill="none" stroke="#0F0A2E" stroke-width="2"/><circle cx="21.5" cy="19.5" r="2.2" fill="none" stroke="#0F0A2E" stroke-width="2"/></svg>
       chegirma
     </div>
-    <div class="lang"><button id="ru" class="on">RU</button><button id="uz">UZ</button></div>
+    <div class="lang"><button id="ru">RU</button><button id="uz" class="on">UZ</button></div>
   </div>
 
   <div class="title-box">
@@ -164,7 +164,7 @@ html[data-l="ru"] span[data-lang="ru"],html[data-l="uz"] span[data-lang="uz"]{di
     document.addEventListener(evt, function(e) { e.preventDefault(); });
   });
 
-  // Переключение языков
+  // Переключение языков (по умолчанию UZ)
   var root = document.documentElement;
   function setLang(l){
     root.setAttribute('data-l', l);
@@ -172,8 +172,10 @@ html[data-l="ru"] span[data-lang="ru"],html[data-l="uz"] span[data-lang="uz"]{di
     document.getElementById('ru').className = l === 'ru' ? 'on' : '';
     document.getElementById('uz').className = l === 'uz' ? 'on' : '';
   }
-  var nav = (navigator.language || 'ru').toLowerCase();
-  setLang(nav.indexOf('uz') === 0 ? 'uz' : 'ru');
+  
+  // Установка узбекского языка по умолчанию
+  setLang('uz');
+  
   document.getElementById('ru').onclick = function(){ setLang('ru'); };
   document.getElementById('uz').onclick = function(){ setLang('uz'); };
 
