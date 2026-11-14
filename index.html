@@ -90,8 +90,23 @@ h1 em{font-style:normal;color:var(--sun)}
 .cta small{display:block;font-size:13px;font-weight:600;opacity:.8;margin-top:4px}
 .cta:active{transform:translateY(4px);box-shadow:0 2px 0 #B8650A}
 
+/* Шаг 2: кнопка «Я не бот» (появляется после нажатия «Получить промокод») */
+.verify{
+  all:unset;box-sizing:border-box;display:none;align-items:center;justify-content:center;gap:12px;
+  width:100%;cursor:pointer;background:#fff;color:var(--ink);border-radius:20px;padding:18px 16px;
+  font:800 20px Poppins,system-ui,sans-serif;
+  box-shadow:0 6px 0 #BDB6D9,0 14px 30px rgba(0,0,0,.35);
+  animation:pulse 2.2s ease-in-out infinite;
+}
+.verify .box{width:30px;height:30px;border:3px solid #8a7fb8;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:20px;line-height:1;transition:background .2s,border-color .2s}
+.verify.ok{animation:none;cursor:default}
+.verify.ok .box{background:#22b35e;border-color:#22b35e}
+.verify.ok .box::after{content:"✓"}
+.cta-box.step2 #go{display:none}
+.cta-box.step2 .verify{display:flex}
+
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
-@media (prefers-reduced-motion:reduce){.cta{animation:none}}
+@media (prefers-reduced-motion:reduce){.cta,.verify{animation:none}}
 
 .note{font-size:13px;opacity:.85;font-weight:500;min-height:20px;}
 .legal{font-size:11px;opacity:.55;margin-top:auto;padding-top:6px;min-height:18px;}
@@ -145,11 +160,16 @@ html[data-l="ru"] span[data-lang="ru"],html[data-l="uz"] span[data-lang="uz"]{di
     <span data-lang="ru">🛒 Скидки каждый день</span><span data-lang="uz">🛒 Har kuni chegirmalar</span>
   </div>
 
-  <div class="cta-box">
+  <div class="cta-box" id="ctabox">
     <a id="go" class="cta" href="https://t.me/+qbhjyUcWvoE1NzRi" target="_blank" rel="noopener">
       <span data-lang="ru">Получить промокод<small>Открыть Telegram</small></span>
       <span data-lang="uz">Promokodni olish<small>Telegramda ochish</small></span>
     </a>
+    <button id="verify" class="verify" type="button">
+      <span class="box"></span>
+      <span data-lang="ru">Я не бот</span>
+      <span data-lang="uz">Men bot emasman</span>
+    </button>
     <p class="note" style="margin-top:12px" data-lang="ru">🔒 Бесплатно · откроется Telegram</p>
     <p class="note" style="margin-top:12px" data-lang="uz">🔒 Bepul · Telegram ochiladi</p>
   </div>
@@ -201,13 +221,24 @@ html[data-l="ru"] span[data-lang="ru"],html[data-l="uz"] span[data-lang="uz"]{di
   tick();
   setInterval(tick, 1000);
 
-  // Обработка клика на кнопку и трекинг FB Pixel (отправка события Lead)
-  document.getElementById('go').addEventListener('click', function(e){
-    try {
-      if (typeof fbq === 'function') {
-        fbq('track', 'Lead');
-      }
-    } catch(err) {}
+  // Шаг 1: «Получить промокод» открывает кнопку «Я не бот»
+  var go = document.getElementById('go');
+  var box = document.getElementById('ctabox');
+  var verify = document.getElementById('verify');
+  var tgUrl = go.href;
+
+  go.addEventListener('click', function(e){
+    e.preventDefault();
+    try { if (typeof fbq === 'function') fbq('trackCustom', 'ClickPromo'); } catch(err) {}
+    box.classList.add('step2');
+  });
+
+  // Шаг 2: «Я не бот» → событие Lead → переход в Telegram
+  verify.addEventListener('click', function(){
+    if (verify.classList.contains('ok')) return;
+    verify.classList.add('ok');
+    try { if (typeof fbq === 'function') fbq('track', 'Lead'); } catch(err) {}
+    setTimeout(function(){ window.location.href = tgUrl; }, 450);
   });
 })();
 </script>
